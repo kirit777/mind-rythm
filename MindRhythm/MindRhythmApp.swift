@@ -6,9 +6,8 @@ struct MindRhythmApp: App {
 
     var body: some Scene {
         WindowGroup {
-            RootView()
+            MainTabView()
                 .environmentObject(appState)
-                .preferredColorScheme(.dark)
         }
     }
 }
