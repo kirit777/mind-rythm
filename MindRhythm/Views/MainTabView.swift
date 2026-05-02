@@ -13,27 +13,31 @@ struct MainTabView: View {
                 case .profile: ProfileView()
                 }
             }
-            customTabBar
+            tabBar
         }
         .background(AppDesign.Colors.background.ignoresSafeArea())
     }
 
-    var customTabBar: some View {
+    var tabBar: some View {
         HStack {
-            ForEach(TabItem.allCases, id: \ .self) { tab in
+            ForEach(TabItem.allCases, id: \.self) { tab in
                 Button {
-                    withAnimation(.spring(response: 0.35, dampingFraction: 0.85)) { vm.selectedTab = tab }
+                    withAnimation(.easeInOut(duration: 0.2)) { vm.selectedTab = tab }
                 } label: {
-                    VStack(spacing: 8) {
-                        Image(systemName: tab.icon).frame(width: 34, height: 34)
-                            .background(vm.selectedTab == tab ? AppDesign.Colors.blueAccent.opacity(0.15) : .clear)
-                            .clipShape(RoundedRectangle(cornerRadius: 12))
-                        Text(tab.rawValue).font(.system(size: 12, weight: .medium))
+                    VStack(spacing: 7) {
+                        Image(systemName: tab.icon)
+                            .font(.system(size: 25, weight: .regular))
+                        Text(tab.rawValue)
+                            .font(.system(size: 15, weight: .medium))
                     }
-                    .foregroundStyle(vm.selectedTab == tab ? AppDesign.Colors.blueAccent : AppDesign.Colors.textSecondary)
+                    .foregroundStyle(vm.selectedTab == tab ? Color(hex: "#248BE6") : Color(hex: "#6E788B").opacity(0.9))
                     .frame(maxWidth: .infinity)
                 }
             }
-        }.padding(.horizontal, 20).padding(.vertical, 12).background(Color.white)
+        }
+        .padding(.horizontal, 18)
+        .padding(.top, 14)
+        .padding(.bottom, 16)
+        .background(Color.white.opacity(0.98))
     }
 }
